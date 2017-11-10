@@ -6,6 +6,7 @@
     "localforage": "registry:dt/localforage#0.0.0+20161102134758",
     "material-ui": "registry:dt/material-ui#0.16.0+20170323194905",
     "moment": "registry:dt/moment#2.11.1+20161010105546",
+    "recompose": "registry:dt/recompose#0.22.0+20170306203754",
     "redux": "registry:dt/redux#3.5.2+20160703092728",
     "redux-thunk": "registry:dt/redux-thunk#2.1.0+20160703120921"
   }
