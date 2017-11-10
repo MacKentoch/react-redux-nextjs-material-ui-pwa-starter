@@ -1,0 +1,12 @@
+[ignore]
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+module.system=haste
+strip_root=true
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
