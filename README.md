@@ -1,14 +1,11 @@
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/MacKentoch/react-redux-nextjs-bootstrap-pwa-starter)
 
-# PWA: Next JS + Redux + Redux persist + redux-devtools-extension + Bootstrap starter
+
+# PWA: Next JS + Redux + Redux persist + redux-devtools-extension + Material UI starter
 
 > A progressive web app starter with NextJS, redux and bootstrap
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/Mp96tCWH2KdajZuBzqB6jwj8/MacKentoch/react-redux-nextjs-bootstrap-pwa-starter'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/Mp96tCWH2KdajZuBzqB6jwj8/MacKentoch/react-redux-nextjs-bootstrap-pwa-starter.svg' />
-</a>
 
-<a target='_blank' href='https://react-redux-nextjs-bootstrap-pwa-starter-nfxmkkccof.now.sh'>
+<!-- <a target='_blank' href='https://react-redux-nextjs-bootstrap-pwa-starter-nfxmkkccof.now.sh'> -->
 
 ![preview](./preview.png)
 </a>
@@ -16,13 +13,8 @@
 
 ## Lighthouse tests
 
-- v0.1.1
-  ![lighthouse-0.1.1](./lighthouse-0.1.1.png)
-  *a bit better for not that much efforts. Performance score would be far better without using bootstrap (actully fetched from https://maxcdn.bootstrapcdn.com)*
-
-- v0.0.1 (*first version: with no optimizations!*)
+- v0.0.1 
   ![lighthouse-test](./lighthouse-test.png)
-  *pretty nice for an out of the box starting PWA starter!*
 
  
 ## Detailed Content
@@ -37,7 +29,7 @@
 - redux-thunk (*simple and does the job*)
 - next-redux-wrapper
 - redux-devtools-extension ([github :link:](https://github.com/zalmoxisus/redux-devtools-extension#redux-devtools-extension))
-- react-bootstrap ([github :link:](https://github.com/react-bootstrap/react-bootstrap))
+- material UI 1.x beta ([github :link:](https://github.com/callemall/material-ui/tree/v1-beta))
 - axios ([github :link:](https://github.com/mzabriskie/axios) *Why: simple, complete, isomorphic ...*)
 
 **Tool chain:**
@@ -55,9 +47,6 @@
 - **you are forced to connect each page** (*even if you don't need redux in that page*) with `withRedux` from `next-redux-wrapper` (*[see page1 as an example](https://github.com/MacKentoch/react-redux-nextjs-bootstrap-starter/blob/master/pages/page1.js)*).
 - **each sub component you may want to connect** should be connected by usual `connect` from `redux` (*[see Header component as an example](https://github.com/MacKentoch/react-redux-nextjs-bootstrap-starter/blob/master/components/header/Header.js)*)
 
-**IMPORTANT: use Layout component on each Page**
-- Layout is the **Layout** (*better to my mind than using `_document`*) of each page
-- Layout component will **register the service worker** (*registering an already registered service worker is no effect but ensures it will register at any page user would enter the application*)
 
 ### Install
 
