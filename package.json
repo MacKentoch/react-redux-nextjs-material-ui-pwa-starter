@@ -39,7 +39,7 @@
     "hot-reload"
   ],
   "engines": {
-    "node": ">=8.6.0",
+    "node": ">=8.1.4",
     "npm": ">=5.4.2"
   },
   "main": "index.js",
