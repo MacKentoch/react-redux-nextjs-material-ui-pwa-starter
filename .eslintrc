@@ -45,7 +45,7 @@
     //
     // The following rules point out areas where you might have made mistakes.
     //
-    "comma-dangle": 2, // disallow or enforce trailing commas
+    "comma-dangle": 0, // disallow or enforce trailing commas
     "no-cond-assign": 2, // disallow assignment in conditional expressions
     "no-console": 1, // disallow use of console (off by default in the node environment)
     "no-constant-condition": 2, // disallow use of constant expressions in conditions

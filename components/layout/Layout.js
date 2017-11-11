@@ -1,146 +1,158 @@
 // @flow
-/* eslint-disable quotes */
 
 // #region imports
-import { PureComponent }  from 'react';
-import Head               from 'next/head';
+import React, {
+  PureComponent
+}                         from 'react';
+import { withStyles }     from 'material-ui/styles';
+import Drawer             from 'material-ui/Drawer';
+import AppBar             from 'material-ui/AppBar';
+import Toolbar            from 'material-ui/Toolbar';
+import Typography         from 'material-ui/Typography';
+import IconButton         from 'material-ui/IconButton';
+import Hidden             from 'material-ui/Hidden';
+import Divider            from 'material-ui/Divider';
+import MenuIcon           from 'material-ui-icons/Menu';
+import List, {
+  ListItem,
+  ListItemIcon,
+  ListItemText
+}                         from 'material-ui/List';
+import InboxIcon          from 'material-ui-icons/Inbox';
+import DraftsIcon         from 'material-ui-icons/Drafts';
+import TrashIcon          from 'material-ui-icons/Delete';
+import styles             from './styles';
 // #endregion
 
 // #region flow types
 type Props = {
-  children: ReactNode
+  children: ReactNode,
+
+  // withStyle injected
+  classes: any,
+  theme: any,
 }
 
-type State = any;
+type State = {
+  mobileOpen: boolean
+};
 // #endregion
 
 class Layout extends PureComponent<Props, State> {
-  // #region component lifecycle methods
-  componentDidMount() {
-    // register service worker:
-    this.registerServiceWorker();
-  }
+  // #region state initialization
+  state = {
+    mobileOpen: false,
+  };
+  // #endregion
 
+  // #region component lifecycle methods
   render() {
-    const { children } = this.props;
+    const {
+      // withStyle HOC:
+      classes,
+      theme,
+      // children:
+      children
+    } = this.props;
+
+    const drawer = (
+      <div>
+        <div className={classes.drawerHeader} />
+        <Divider />
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Inbox" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <DraftsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Drafts" />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              <TrashIcon />
+            </ListItemIcon>
+            <ListItemText primary="Trash" />
+          </ListItem>
+          <ListItem button component="a" href="#simple-list">
+            <ListItemText primary="Spam" />
+          </ListItem>
+        </List>
+      </div>
+    );
 
     return (
-      <div>
-        <Head>
-          <title>Next PWA Starter</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <meta charSet="utf-8" />
-
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" />
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-
-          <meta name="application-name" content="react-redux-nextjs-bootstrap-pwa-starter" />
-          <link rel="manifest" href="static/manifest.json" />
-
-          <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png" />
-          <meta name="theme-color" content="#1967be" />
-
-          <link rel="mask-icon" href="static/safari-pinned-tab.svg" color="#1967be" />
-          <meta name="apple-mobile-web-app-title" content="Next PWA Starter" />
-          <link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png" />
-          <link rel="apple-touch-startup-image" href="static/apple-touch-icon.png" />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-title" content="react-redux-nextjs-bootstrap-pwa-starter" />
-          {/* <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /> */}
-          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        </Head>
-        <style
-          jsx
-          global
-        >
-          {`
-            body {
-            }
-
-            .navbar {
-              border-radius: 0;
-            }
-          `}
-        </style>
-        <noscript>
-          <div className="alert  alert-warning">
-            <h4>Warning!</h4>
-            <h5>
-              Javascript is disabled for this website.
-            </h5>
-            <p>
-              Javascript is required to use this website.
-            </p>
-            <p>
-              {`You won't be able to navigate in this website until you activate javascript.`}
-            </p>
-          </div>
-        </noscript>
-        {children}
+      <div className={classes.root}>
+        <div className={classes.appFrame}>
+          <AppBar
+            className={classes.appBar}
+            elevation={0}
+          >
+            <Toolbar>
+              <IconButton
+                color="contrast"
+                aria-label="open drawer"
+                onClick={this.handleDrawerToggle}
+                className={classes.navIconHide}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography type="title" color="inherit" noWrap>
+                Responsive drawer
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Hidden mdUp>
+            <Drawer
+              type="temporary"
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+              open={this.state.mobileOpen}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              onRequestClose={this.handleDrawerToggle}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden mdDown implementation="css">
+            <Drawer
+              type="permanent"
+              open
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <main className={classes.content}>
+            <Typography type="body1" noWrap>
+              {'You think water moves fast? You should see ice.'}
+            </Typography>
+            { children }
+          </main>
+        </div>
       </div>
     );
   }
   // #endregion
 
-  // #region service worker registration
-
-  /**
-   * service worker registration
-   *
-   * AS layout shoudl be used on each page, it will be called for each page (as we want)
-   * It does not matter you call it multiple times since once registered, navigator.serviceWorker.register() will have no more effect (see https://developers.google.com/web/fundamentals/primers/service-workers/registration#subsequent_visits)
-   *
-   * @memberof Layout
-   * @returns {void}
-   */
-  registerServiceWorker = async () => {
-    if (
-      typeof window !== 'undefined' &&
-      'serviceWorker' in navigator
-    ) {
-      try {
-        await navigator.serviceWorker.register('/sw.js');
-      } catch (error) {
-        /* eslint-disable no-console */
-        console.error('Service worker registration failed, error: ', error);
-        /* eslint-enable no-console */
-      }
-    } else {
-      /* eslint-disable no-console */
-      console.log('Service worker is not supported...');
-      /* eslint-enable no-console */
-    }
-  }
-  // #endregion
-
-  // #region PWA prompt user install app (add to screen)
-  registerBeforeinstallprompt = () => {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('beforeinstallprompt', async (e) => {
-        // beforeinstallprompt Event fired
-        try {
-          // e.userChoice will return a Promise.
-          const choiceResult = await e.userChoice;
-          if(choiceResult.outcome === 'dismissed') {
-            /* eslint-disable no-console */
-            console.log('User cancelled home screen install');
-            /* eslint-enable no-console */
-          } else {
-            /* eslint-disable no-console */
-            console.log('User added to home screen');
-            /* eslint-enable no-console */
-          }
-        } catch (error) {
-          /* eslint-disable no-console */
-          console.error('user choice prompt promise failed to resolve, error: ', error);
-          /* eslint-enable no-console */
-        }
-      });
-    }
-  }
-
+  // #region drawer management
+  handleDrawerToggle = () => this.setState(
+    ({mobileOpen: prevMobileOpen}: State) => ({ mobileOpen: !prevMobileOpen })
+  );
   // #endregion
 }
 
-export default Layout;
+export default withStyles(styles, { withTheme: true })(Layout);

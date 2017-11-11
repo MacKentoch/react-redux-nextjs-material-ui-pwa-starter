@@ -14,27 +14,11 @@ import Dialog, {
 import Typography             from 'material-ui/Typography';
 import { withStyles }         from 'material-ui/styles';
 import withRoot               from '../HOC/withRoot';
-// import { bindActionCreators } from 'redux';
-// import withRedux              from 'next-redux-wrapper';
-// import configureStore         from '../redux/store/configureStore';
-// import * as fakeFetchActions  from '../redux/modules/fakeModuleWithFetch';
-// import * as userAuthActions   from '../redux/modules/userAuth';
-// import Header                 from '../components/header/Header';
-// import Jumbotron              from 'react-bootstrap/lib/Jumbotron';
-// import Button                 from 'react-bootstrap/lib/Button';
-// import Router                 from 'next/router';
+import Layout                 from '../components/layout/Layout';
 // #endregion
 
 // #region flow types
 type Props = {
-  // // fakeModuleWithFetch:
-  // isFetching: boolean;
-  // fakeData: any,
-  // fakeFetchIfNeeded: () => Promise<any>,
-  // // userAuth:
-  // isAuthenticated: boolean,
-  // disconnectUser: () => any,
-
   classes: any,
   ...any
 };
@@ -43,17 +27,6 @@ type State = {
   open: boolean,
   ...any
 };
-
-// type InitialProps = {
-//   req: any,
-//   res: any,
-//   pathname: string,
-//   query: any,
-//   asPath: string,
-//   isServer: boolean,
-//   store?: any,
-//   ...any
-// }
 // #endregion
 
 // #region styles
@@ -95,10 +68,14 @@ class Index extends PureComponent<Props, State> {
 
   // #region component lifecycle methods
   render() {
+    const {
+      open
+    } = this.state;
+
     return (
-      <div className={this.props.classes.root}>
+      <Layout>
         <Dialog
-          open={this.state.open}
+          open={open}
           onRequestClose={this.handleRequestClose}
         >
           <DialogTitle>
@@ -140,7 +117,7 @@ class Index extends PureComponent<Props, State> {
         >
           Super Secret Password
         </Button>
-      </div>
+      </Layout>
     );
   }
   // #endregion
@@ -157,39 +134,6 @@ class Index extends PureComponent<Props, State> {
     });
   };
 }
-
-// // #region redux state and dispatch map to props
-// const mapStateToProps = (
-//   state: any
-// ) => ({
-//   // fakeModuleWithFetch:
-//   isFetching: state.fakeModuleWithFetch.isFetching,
-//   fakeData:   state.fakeModuleWithFetch.data,
-//   // userAuth:
-//   isAuthenticated: state.userAuth.isAuthenticated
-// });
-
-// const mapDispatchToProps = (
-//   dispatch: (...any) => any
-// ) => {
-//   return {
-//     ...bindActionCreators(
-//       {
-//         // fakeModuleWithFetch:
-//         ...fakeFetchActions,
-//         // userAuth:
-//         ...userAuthActions
-//       },
-//       dispatch)
-//   };
-// };
-// // #endregion
-
-// export default withRedux(
-//   configureStore,
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Index);
 
 export default withRoot(withStyles(styles)(Index));
 

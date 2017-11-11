@@ -2,7 +2,7 @@
 const CACHE_NAME  = 'rrnm-cache-v1';
 const urlsToCache = [
   '/',
-  'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+  'https://fonts.googleapis.com/css?family=Roboto:300,400,500'
 ];
 const cacheWhitelist = [CACHE_NAME]; // by default current CACHE_NAME will persist on acivation (non whitelisted one will be deleted)
 
