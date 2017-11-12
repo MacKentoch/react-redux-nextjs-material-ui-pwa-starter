@@ -13,14 +13,11 @@ import IconButton         from 'material-ui/IconButton';
 import Hidden             from 'material-ui/Hidden';
 import Divider            from 'material-ui/Divider';
 import MenuIcon           from 'material-ui-icons/Menu';
-import List, {
-  ListItem,
-  ListItemIcon,
-  ListItemText
-}                         from 'material-ui/List';
-import InboxIcon          from 'material-ui-icons/Inbox';
-import DraftsIcon         from 'material-ui-icons/Drafts';
-import TrashIcon          from 'material-ui-icons/Delete';
+import List               from 'material-ui/List';
+import {
+  Menu1,
+  Menu2
+}                         from './Menus';
 import styles             from './styles';
 // #endregion
 
@@ -59,32 +56,10 @@ class Layout extends PureComponent<Props, State> {
       <div>
         <div className={classes.drawerHeader} />
         <Divider />
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <DraftsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Drafts" />
-          </ListItem>
-        </List>
+        {Menu1}
         <Divider />
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <TrashIcon />
-            </ListItemIcon>
-            <ListItemText primary="Trash" />
-          </ListItem>
-          <ListItem button component="a" href="#simple-list">
-            <ListItemText primary="Spam" />
-          </ListItem>
-        </List>
+        {Menu2}
+        <Divider />
       </div>
     );
 
@@ -105,7 +80,7 @@ class Layout extends PureComponent<Props, State> {
                 <MenuIcon />
               </IconButton>
               <Typography type="title" color="inherit" noWrap>
-                Responsive drawer
+                PWA Next Material UI
               </Typography>
             </Toolbar>
           </AppBar>

@@ -1,21 +1,27 @@
 // @flow
 
+// region imports
+import {
+  create,
+  SheetsRegistry
+}                               from 'jss';
+import preset                   from 'jss-preset-default';
+import { createMuiTheme }       from 'material-ui/styles';
+import createGenerateClassName  from 'material-ui/styles/createGenerateClassName';
+import blue                     from 'material-ui/colors/blue';
+import yellow                   from 'material-ui/colors/yellow';
+// #endregion
 
-import { create, SheetsRegistry } from 'jss';
-import preset from 'jss-preset-default';
-import { createMuiTheme } from 'material-ui/styles';
-import purple from 'material-ui/colors/purple';
-import green from 'material-ui/colors/green';
-import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
-
+// #region Mui theme configuration:
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
-    secondary: green
+    primary: blue,
+    secondary: yellow
   }
 });
+// #endregion
 
-// Configure JSS
+// #region Configure JSS
 const jss = create(preset());
 jss.options.createGenerateClassName = createGenerateClassName;
 
@@ -29,7 +35,9 @@ function createContext() {
     sheetsRegistry: new SheetsRegistry(),
   };
 }
+// #endregion
 
+// #region jss store
 export default function getContext() {
   // Make sure to create a new store for every server-side request so that data
   // isn't shared between connections (which would be bad)
@@ -44,3 +52,4 @@ export default function getContext() {
 
   return global.__INIT_MATERIAL_UI__;
 }
+// #endregion

@@ -103,6 +103,17 @@ class RootDocument extends Document<Props, State> {
           <meta name="apple-mobile-web-app-title" content="react-redux-nextjs-material-ui-pwa-starter" />
           {/* <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /> */}
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+          <style>{`
+            {/* next js fix for div surrounding #__next */}
+            html,
+            body,
+            body > div:first-child,
+            #__next,
+            #__next > div:first-child  {
+              height: 100%;
+              margin: 0;
+            }
+          `}</style>
         </Head>
         <body>
           <Main />

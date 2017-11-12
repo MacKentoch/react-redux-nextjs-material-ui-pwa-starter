@@ -6,10 +6,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/MacKentoch/react-redux-nextjs-material-ui-pwa-starter"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/MacKentoch/react-redux-nextjs-material-ui-pwa-starter/issues"
   },
   "keywords": [
     "react",
