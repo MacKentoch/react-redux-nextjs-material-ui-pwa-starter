@@ -4,6 +4,7 @@
 import React, {
   PureComponent
 }                             from 'react';
+import Router                 from 'next/router';
 import Button                 from 'material-ui/Button';
 import Dialog, {
   DialogTitle,
@@ -24,7 +25,6 @@ type Props = {
 };
 
 type State = {
-  open: boolean,
   ...any
 };
 // #endregion
@@ -62,40 +62,11 @@ class Index extends PureComponent<Props, State> {
   // }
   // #endregion
 
-  state = {
-    open: false
-  };
 
   // #region component lifecycle methods
   render() {
-    const {
-      open
-    } = this.state;
-
     return (
       <Layout>
-        <Dialog
-          open={open}
-          onRequestClose={this.handleRequestClose}
-        >
-          <DialogTitle>
-            Super Secret Password
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              1-2-3-4-5
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              color="primary"
-              onClick={this.handleRequestClose}
-            >
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
-
         <Typography
           type="display1"
           gutterBottom
@@ -115,7 +86,7 @@ class Index extends PureComponent<Props, State> {
           color="accent"
           onClick={this.handleClick}
         >
-          Super Secret Password
+          Login
         </Button>
       </Layout>
     );
@@ -129,9 +100,7 @@ class Index extends PureComponent<Props, State> {
   };
 
   handleClick = () => {
-    this.setState({
-      open: true
-    });
+    Router.push('/login');
   };
 }
 

@@ -53,6 +53,7 @@
     "axios": "^0.16.2",
     "chalk": "^2.2.0",
     "deepmerge": "^2.0.1",
+    "es6-promise-debounce": "^1.0.1",
     "express": "^4.16.2",
     "jss": "^9.2.0",
     "jss-preset-default": "^4.0.1",

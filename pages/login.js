@@ -7,12 +7,16 @@ import { bindActionCreators } from 'redux';
 import withRedux              from 'next-redux-wrapper';
 import configureStore         from '../redux/store/configureStore';
 import * as userAuthActions   from '../redux/modules/userAuth';
+import debounce               from 'es6-promise-debounce';
 import Router                 from 'next/router';
+import Typography             from 'material-ui/Typography';
+import { withStyles }         from 'material-ui/styles';
+import withRoot               from '../HOC/withRoot';
 import Layout                 from '../components/layout/Layout';
-import Button                 from 'react-bootstrap/lib/Button';
-import Row                    from 'react-bootstrap/lib/Row';
-import Col                    from 'react-bootstrap/lib/Col';
-import Alert                  from 'react-bootstrap/lib/Alert';
+import Button                 from 'material-ui/Button';
+import Snackbar               from 'material-ui/Snackbar';
+import Slide                  from 'material-ui/transitions/Slide';
+import Grid                   from 'material-ui/Grid';
 import auth                   from '../services/auth';
 // #endregion
 
@@ -38,8 +42,20 @@ type Props = {
 
 type State = {
   email: string,
-  password: string
+  password: string,
+  browserStorageSupported: boolean,
+  showSnackbar: boolean
 }
+// #endregion
+
+// #region styles
+const styles = {
+  content: {
+    flexGrow: 1,
+    marginTop: '70px',
+    paddingTop: '40px'
+  }
+};
 // #endregion
 
 class Login extends PureComponent<Props, State> {
@@ -54,7 +70,8 @@ class Login extends PureComponent<Props, State> {
   state = {
     email:    '',
     password: '',
-    browserStorageSupported: false
+    browserStorageSupported: false,
+    showSnackbar: false
   };
   // #endregion
 
@@ -85,29 +102,21 @@ class Login extends PureComponent<Props, State> {
 
     return (
       <Layout>
-        <style
-          jsx
-        >
-          {
-            `
-              .content {
-                margin-top: 70px;
-                padding-top: 40px;
-              }
-            `
-          }
-        </style>
         <div className="content">
-          <Row>
-            <Col
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            spacing={16}
+          >
+            <Grid
+              item
               md={4}
-              mdOffset={4}
               xs={10}
-              xsOffset={1}
             >
               {
-                browserStorageSupported
-                  ?
+                browserStorageSupported &&
                   <form
                     className="form-horizontal"
                     noValidate
@@ -155,9 +164,10 @@ class Login extends PureComponent<Props, State> {
                         </div>
                       </div>
                       <div className="form-group">
-                        <Col
+                        <Grid
+                          item
                           lg={10}
-                          lgOffset={2}
+                          // lgOffset={2}
                         >
                           <Button
                             className="login-button btn-block"
@@ -181,15 +191,19 @@ class Login extends PureComponent<Props, State> {
                                 </span>
                             }
                           </Button>
-                        </Col>
+                        </Grid>
                       </div>
                     </fieldset>
                   </form>
-                  :
-                  <Alert
-                    bsStyle="danger"
-                    onDismiss={this.handleAlertDismiss}
-                  >
+              }
+              <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                open={browserStorageSupported}
+                onRequestClose={this.handleAlertDismiss}
+                transition={(props) => (<Slide direction="up" {...props}  />)}
+                SnackbarContentProps={{ 'aria-describedby': 'login-failed-container', }}
+                message={
+                  <div id="login-failed-container">
                     <h4>
                       <i className="fa fa-exclamation-triangle" aria-hidden="true" /> &nbsp;
                       Cookies are disabled on your browser!
@@ -210,18 +224,21 @@ class Login extends PureComponent<Props, State> {
                         Back to Home
                       </Button>
                     </p>
-                  </Alert>
-              }
-            </Col>
-          </Row>
+                  </div>
+                }
+              />
+            </Grid>
+          </Grid>
           {
             browserStorageSupported &&
-            <Row>
-              <Col
+            <Grid container spacing={16}>
+              <Grid
+                item
+                direction="column"
+                justify="center"
+                alignItems="center"
                 md={4}
-                mdOffset={4}
                 xs={10}
-                xsOffset={1}
               >
                 <div
                   className="pull-right"
@@ -233,8 +250,8 @@ class Login extends PureComponent<Props, State> {
                     back to home
                   </Button>
                 </div>
-              </Col>
-            </Row>
+              </Grid>
+            </Grid>
           }
         </div>
       </Layout>
@@ -243,7 +260,10 @@ class Login extends PureComponent<Props, State> {
   // #endregion
 
   // #region storage not supported methods
-  setBrowserStorageSupportedState = (browserStorageSupported) => this.setState({ browserStorageSupported });
+  setBrowserStorageSupportedState = debounce(
+    (browserStorageSupported) => this.setState({ browserStorageSupported }),
+    600
+  );
 
   handleAlertDismiss = (
     event: SyntheticEvent<>
@@ -364,5 +384,7 @@ export default withRedux(
   configureStore,
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(
+  withRoot(withStyles(styles)(Login))
+);
 
