@@ -5,18 +5,31 @@
 import { PureComponent }      from 'react';
 import { bindActionCreators } from 'redux';
 import withRedux              from 'next-redux-wrapper';
-import configureStore         from '../redux/store/configureStore';
-import * as userAuthActions   from '../redux/modules/userAuth';
 import debounce               from 'es6-promise-debounce';
 import Router                 from 'next/router';
-import Typography             from 'material-ui/Typography';
-import { withStyles }         from 'material-ui/styles';
-import withRoot               from '../HOC/withRoot';
-import Layout                 from '../components/layout/Layout';
 import Button                 from 'material-ui/Button';
 import Snackbar               from 'material-ui/Snackbar';
 import Slide                  from 'material-ui/transitions/Slide';
 import Grid                   from 'material-ui/Grid';
+import Typography             from 'material-ui/Typography';
+import { withStyles }         from 'material-ui/styles';
+import FormControl            from 'material-ui/FormControl';
+import InputLabel             from 'material-ui/InputLabel';
+import Input, {
+  InputLabel,
+  InputAdornment
+}                             from 'material-ui/Input';
+import IconButton             from 'material-ui/IconButton';
+import {
+  FormControl,
+  FormHelperText
+}                             from 'material-ui/Form';
+import Visibility             from 'material-ui-icons/Visibility';
+import VisibilityOff          from 'material-ui-icons/VisibilityOff';
+import configureStore         from '../redux/store/configureStore';
+import * as userAuthActions   from '../redux/modules/userAuth';
+import withRoot               from '../HOC/withRoot';
+import Layout                 from '../components/layout/Layout';
 import auth                   from '../services/auth';
 // #endregion
 
@@ -49,13 +62,16 @@ type State = {
 // #endregion
 
 // #region styles
-const styles = {
+const styles = theme => ({
   content: {
     flexGrow: 1,
     marginTop: '70px',
     paddingTop: '40px'
-  }
-};
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+  },
+});
 // #endregion
 
 class Login extends PureComponent<Props, State> {
@@ -97,7 +113,8 @@ class Login extends PureComponent<Props, State> {
     } = this.state;
 
     const {
-      isLogging
+      isLogging,
+      classes
     } = this.props;
 
     return (
@@ -117,84 +134,78 @@ class Login extends PureComponent<Props, State> {
             >
               {
                 browserStorageSupported &&
-                  <form
-                    className="form-horizontal"
-                    noValidate
-                  >
-                    <fieldset>
-                      <legend>
+                  <div>
+                    <legend>
                       Login
-                      </legend>
+                    </legend>
 
-                      <div className="form-group">
-                        <label
-                          htmlFor="inputEmail"
-                          className="col-lg-2 control-label"
-                        >
+
+                    <FormControl
+                      fullWidth
+                      className={classes.formControl}
+                    >
+                      <InputLabel
+                        htmlFor="inputEmail"
+                      >
                         Email
-                        </label>
-                        <div className="col-lg-10">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="inputEmail"
-                            placeholder="Email"
-                            value={email}
-                            onChange={this.handlesOnEmailChange}
-                          />
-                        </div>
-                      </div>
+                      </InputLabel>
+                      <Input
+                        id="inputEmail"
+                        value={email}
+                        onChange={this.handlesOnEmailChange}
+                        startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                      />
+                    </FormControl>
 
-                      <div className="form-group">
-                        <label
-                          htmlFor="inputPassword"
-                          className="col-lg-2 control-label"
-                        >
+                    <div className="form-group">
+                      <label
+                        htmlFor="inputPassword"
+                        className="col-lg-2 control-label"
+                      >
                         Password
-                        </label>
-                        <div className="col-lg-10">
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="inputPassword"
-                            placeholder="Password"
-                            value={password}
-                            onChange={this.handlesOnPasswordChange}
-                          />
-                        </div>
+                      </label>
+                      <div className="col-lg-10">
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="inputPassword"
+                          placeholder="Password"
+                          value={password}
+                          onChange={this.handlesOnPasswordChange}
+                        />
                       </div>
-                      <div className="form-group">
-                        <Grid
-                          item
-                          lg={10}
-                          // lgOffset={2}
+                    </div>
+                    <div className="form-group">
+                      <Grid
+                        item
+                        lg={10}
+                        // lgOffset={2}
+                      >
+                        <Button
+                          className="login-button btn-block"
+                          bsStyle="primary"
+                          disabled={isLogging}
+                          onClick={this.handlesOnLogin}
                         >
-                          <Button
-                            className="login-button btn-block"
-                            bsStyle="primary"
-                            disabled={isLogging}
-                            onClick={this.handlesOnLogin}
-                          >
-                            {
-                              isLogging
-                                ?
-                                <span>
+                          {
+                            isLogging
+                              ?
+                              <span>
                                 login in...
                                 &nbsp;
-                                  <i
-                                    className="fa fa-spinner fa-pulse fa-fw"
-                                  />
-                                </span>
-                                :
-                                <span>
+                                <i
+                                  className="fa fa-spinner fa-pulse fa-fw"
+                                />
+                              </span>
+                              :
+                              <span>
                                 Login
-                                </span>
-                            }
-                          </Button>
-                        </Grid>
-                      </div>
-                    </fieldset>
-                  </form>
+                              </span>
+                          }
+                        </Button>
+                      </Grid>
+                    </div>
+                  </div>
               }
               <Snackbar
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -277,7 +288,9 @@ class Login extends PureComponent<Props, State> {
   // #endregion
 
   // #region input change methods
-  handlesOnEmailChange = (event: SyntheticEvent<>) => {
+  handlesOnEmailChange = (
+    event: SyntheticEvent<>
+  ) => {
     if (event) {
       event.preventDefault();
       // should add some validator before setState in real use cases
@@ -285,7 +298,9 @@ class Login extends PureComponent<Props, State> {
     }
   }
 
-  handlesOnPasswordChange = (event: SyntheticEvent<>) => {
+  handlesOnPasswordChange = (
+    event: SyntheticEvent<>
+  ) => {
     if (event) {
       event.preventDefault();
       // should add some validator before setState in real use cases
