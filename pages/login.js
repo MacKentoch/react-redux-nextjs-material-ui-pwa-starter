@@ -13,19 +13,14 @@ import Slide                  from 'material-ui/transitions/Slide';
 import Grid                   from 'material-ui/Grid';
 import Typography             from 'material-ui/Typography';
 import { withStyles }         from 'material-ui/styles';
-import FormControl            from 'material-ui/FormControl';
-import InputLabel             from 'material-ui/InputLabel';
 import Input, {
   InputLabel,
   InputAdornment
 }                             from 'material-ui/Input';
-import IconButton             from 'material-ui/IconButton';
+import Icon                   from 'material-ui/Icon';
 import {
-  FormControl,
-  FormHelperText
+  FormControl
 }                             from 'material-ui/Form';
-import Visibility             from 'material-ui-icons/Visibility';
-import VisibilityOff          from 'material-ui-icons/VisibilityOff';
 import configureStore         from '../redux/store/configureStore';
 import * as userAuthActions   from '../redux/modules/userAuth';
 import withRoot               from '../HOC/withRoot';
@@ -135,9 +130,12 @@ class Login extends PureComponent<Props, State> {
               {
                 browserStorageSupported &&
                   <div>
-                    <legend>
+                    <Typography
+                      type="title"
+                      gutterBottom
+                    >
                       Login
-                    </legend>
+                    </Typography>
 
 
                     <FormControl
@@ -153,28 +151,28 @@ class Login extends PureComponent<Props, State> {
                         id="inputEmail"
                         value={email}
                         onChange={this.handlesOnEmailChange}
-                        startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                        startAdornment={<InputAdornment position="start"><Icon>mail_outline</Icon></InputAdornment>}
                       />
                     </FormControl>
 
-                    <div className="form-group">
-                      <label
+                    <FormControl
+                      fullWidth
+                      className={classes.formControl}
+                    >
+                      <InputLabel
                         htmlFor="inputPassword"
-                        className="col-lg-2 control-label"
                       >
                         Password
-                      </label>
-                      <div className="col-lg-10">
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="inputPassword"
-                          placeholder="Password"
-                          value={password}
-                          onChange={this.handlesOnPasswordChange}
-                        />
-                      </div>
-                    </div>
+                      </InputLabel>
+                      <Input
+                        id="inputPassword"
+                        value={email}
+                        onChange={this.handlesOnPasswordChange}
+                        startAdornment={<InputAdornment position="start"><Icon>mail_outline</Icon></InputAdornment>}
+                      />
+                    </FormControl>
+
+
                     <div className="form-group">
                       <Grid
                         item
@@ -182,8 +180,7 @@ class Login extends PureComponent<Props, State> {
                         // lgOffset={2}
                       >
                         <Button
-                          className="login-button btn-block"
-                          bsStyle="primary"
+                          outline
                           disabled={isLogging}
                           onClick={this.handlesOnLogin}
                         >
