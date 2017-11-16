@@ -81,7 +81,7 @@ class Login extends PureComponent<Props, State> {
   state = {
     email:    '',
     password: '',
-    browserStorageSupported: false,
+    browserStorageSupported: true,
     showSnackbar: false
   };
   // #endregion
@@ -124,8 +124,8 @@ class Login extends PureComponent<Props, State> {
           >
             <Grid
               item
-              md={4}
-              xs={10}
+              md={8}
+              xs={12}
             >
               {
                 browserStorageSupported &&
@@ -150,8 +150,9 @@ class Login extends PureComponent<Props, State> {
                       <Input
                         id="inputEmail"
                         value={email}
+                        placeholder="your email"
                         onChange={this.handlesOnEmailChange}
-                        startAdornment={<InputAdornment position="start"><Icon>mail_outline</Icon></InputAdornment>}
+                        startAdornment={<InputAdornment position="start"><Icon>mail</Icon></InputAdornment>}
                       />
                     </FormControl>
 
@@ -166,7 +167,8 @@ class Login extends PureComponent<Props, State> {
                       </InputLabel>
                       <Input
                         id="inputPassword"
-                        value={email}
+                        value={password}
+                        placeholder="your password"
                         onChange={this.handlesOnPasswordChange}
                         startAdornment={<InputAdornment position="start"><Icon>mail_outline</Icon></InputAdornment>}
                       />
@@ -206,7 +208,7 @@ class Login extends PureComponent<Props, State> {
               }
               <Snackbar
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                open={browserStorageSupported}
+                open={!browserStorageSupported}
                 onRequestClose={this.handleAlertDismiss}
                 transition={(props) => (<Slide direction="up" {...props}  />)}
                 SnackbarContentProps={{ 'aria-describedby': 'login-failed-container', }}
@@ -239,14 +241,17 @@ class Login extends PureComponent<Props, State> {
           </Grid>
           {
             browserStorageSupported &&
-            <Grid container spacing={16}>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+              spacing={16}
+            >
               <Grid
                 item
-                direction="column"
-                justify="center"
-                alignItems="center"
-                md={4}
-                xs={10}
+                md={8}
+                xs={12}
               >
                 <div
                   className="pull-right"
@@ -280,7 +285,7 @@ class Login extends PureComponent<Props, State> {
       event.preventDefault();
     }
 
-    Router.replace('/');
+    // Router.replace('/');
   }
   // #endregion
 

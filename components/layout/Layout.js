@@ -112,9 +112,6 @@ class Layout extends PureComponent<Props, State> {
             </Drawer>
           </Hidden>
           <main className={classes.content}>
-            <Typography type="body1" noWrap>
-              {'You think water moves fast? You should see ice.'}
-            </Typography>
             { children }
           </main>
         </div>
