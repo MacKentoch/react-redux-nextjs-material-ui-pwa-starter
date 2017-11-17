@@ -17,10 +17,11 @@ import Input, {
   InputLabel,
   InputAdornment
 }                             from 'material-ui/Input';
-import Icon                   from 'material-ui/Icon';
 import {
   FormControl
 }                             from 'material-ui/Form';
+import MailOutline            from 'material-ui-icons/MailOutline';
+import LockOutline            from 'material-ui-icons/LockOutline';
 import configureStore         from '../redux/store/configureStore';
 import * as userAuthActions   from '../redux/modules/userAuth';
 import withRoot               from '../HOC/withRoot';
@@ -66,6 +67,13 @@ const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
   },
+  inputIcon: {
+    marginBottom: 1
+  },
+
+  formButtonContainer: {
+    marginTop: '10px'
+  }
 });
 // #endregion
 
@@ -137,7 +145,6 @@ class Login extends PureComponent<Props, State> {
                       Login
                     </Typography>
 
-
                     <FormControl
                       fullWidth
                       className={classes.formControl}
@@ -152,7 +159,7 @@ class Login extends PureComponent<Props, State> {
                         value={email}
                         placeholder="your email"
                         onChange={this.handlesOnEmailChange}
-                        startAdornment={<InputAdornment position="start"><Icon>mail</Icon></InputAdornment>}
+                        startAdornment={<InputAdornment position="start"><MailOutline /></InputAdornment>}
                       />
                     </FormControl>
 
@@ -170,7 +177,7 @@ class Login extends PureComponent<Props, State> {
                         value={password}
                         placeholder="your password"
                         onChange={this.handlesOnPasswordChange}
-                        startAdornment={<InputAdornment position="start"><Icon>mail_outline</Icon></InputAdornment>}
+                        startAdornment={<InputAdornment position="start"><LockOutline /></InputAdornment>}
                       />
                     </FormControl>
 
@@ -181,27 +188,31 @@ class Login extends PureComponent<Props, State> {
                         lg={10}
                         // lgOffset={2}
                       >
-                        <Button
-                          outline
-                          disabled={isLogging}
-                          onClick={this.handlesOnLogin}
-                        >
-                          {
-                            isLogging
-                              ?
-                              <span>
-                                login in...
-                                &nbsp;
-                                <i
-                                  className="fa fa-spinner fa-pulse fa-fw"
-                                />
-                              </span>
-                              :
-                              <span>
-                                Login
-                              </span>
-                          }
-                        </Button>
+                        <div className={classes.formButtonContainer}>
+                          <Button
+                            raised
+                            color="accent"
+                            //outline
+                            disabled={isLogging}
+                            onClick={this.handlesOnLogin}
+                          >
+                            {
+                              isLogging
+                                ?
+                                <span>
+                                  login in...
+                                  &nbsp;
+                                  <i
+                                    className="fa fa-spinner fa-pulse fa-fw"
+                                  />
+                                </span>
+                                :
+                                <span>
+                                  Login
+                                </span>
+                            }
+                          </Button>
+                        </div>
                       </Grid>
                     </div>
                   </div>
