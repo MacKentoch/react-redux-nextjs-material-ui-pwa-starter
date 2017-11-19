@@ -5,6 +5,7 @@ import {
   ListItemIcon,
   ListItemText
 }                     from 'material-ui/List';
+import HomeIcon       from 'material-ui-icons/Home';
 import InboxIcon      from 'material-ui-icons/MoveToInbox';
 import DraftsIcon     from 'material-ui-icons/Drafts';
 import StarIcon       from 'material-ui-icons/Star';
@@ -17,9 +18,9 @@ export const Menu1 = (
   <div>
     <ListItem button>
       <ListItemIcon>
-        <InboxIcon />
+        <HomeIcon />
       </ListItemIcon>
-      <ListItemText primary="Inbox" />
+      <ListItemText primary="Home" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
