@@ -14,8 +14,8 @@ import Hidden             from 'material-ui/Hidden';
 import Divider            from 'material-ui/Divider';
 import MenuIcon           from 'material-ui-icons/Menu';
 import {
-  Menu1,
-  Menu2
+  Menu1
+  // Menu2
 }                         from './Menus';
 import styles             from './styles';
 // #endregion
@@ -56,8 +56,6 @@ class Layout extends PureComponent<Props, State> {
         <div className={classes.drawerHeader} />
         <Divider />
         {Menu1}
-        <Divider />
-        {Menu2}
         <Divider />
       </div>
     );

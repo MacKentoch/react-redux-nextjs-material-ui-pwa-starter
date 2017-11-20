@@ -6,6 +6,9 @@ import {
   ListItemText
 }                     from 'material-ui/List';
 import HomeIcon       from 'material-ui-icons/Home';
+import LockIcon       from 'material-ui-icons/Lock';
+import InfoIcon       from 'material-ui-icons/Info';
+
 import InboxIcon      from 'material-ui-icons/MoveToInbox';
 import DraftsIcon     from 'material-ui-icons/Drafts';
 import StarIcon       from 'material-ui-icons/Star';
@@ -24,15 +27,15 @@ export const Menu1 = (
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <StarIcon />
+        <LockIcon />
       </ListItemIcon>
-      <ListItemText primary="Starred" />
+      <ListItemText primary="Protected" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <SendIcon />
+        <InfoIcon />
       </ListItemIcon>
-      <ListItemText primary="Send mail" />
+      <ListItemText primary="About" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
@@ -43,26 +46,26 @@ export const Menu1 = (
   </div>
 );
 
-export const Menu2 = (
-  <div>
-    <ListItem button>
-      <ListItemIcon>
-        <MailIcon />
-      </ListItemIcon>
-      <ListItemText primary="All mail" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <DeleteIcon />
-      </ListItemIcon>
-      <ListItemText primary="Trash" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ReportIcon />
-      </ListItemIcon>
-      <ListItemText primary="Spam" />
-    </ListItem>
-  </div>
-);
+// export const Menu2 = (
+//   <div>
+//     <ListItem button>
+//       <ListItemIcon>
+//         <MailIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="All mail" />
+//     </ListItem>
+//     <ListItem button>
+//       <ListItemIcon>
+//         <DeleteIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Trash" />
+//     </ListItem>
+//     <ListItem button>
+//       <ListItemIcon>
+//         <ReportIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Spam" />
+//     </ListItem>
+//   </div>
+// );
 
