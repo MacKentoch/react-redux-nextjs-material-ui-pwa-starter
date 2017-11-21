@@ -8,14 +8,7 @@ import {
 import HomeIcon       from 'material-ui-icons/Home';
 import LockIcon       from 'material-ui-icons/Lock';
 import InfoIcon       from 'material-ui-icons/Info';
-
-import InboxIcon      from 'material-ui-icons/MoveToInbox';
-import DraftsIcon     from 'material-ui-icons/Drafts';
-import StarIcon       from 'material-ui-icons/Star';
-import SendIcon       from 'material-ui-icons/Send';
-import MailIcon       from 'material-ui-icons/Mail';
-import DeleteIcon     from 'material-ui-icons/Delete';
-import ReportIcon     from 'material-ui-icons/Report';
+// import DraftsIcon     from 'material-ui-icons/Drafts';
 
 export const Menu1 = (
   <div>
@@ -37,35 +30,11 @@ export const Menu1 = (
       </ListItemIcon>
       <ListItemText primary="About" />
     </ListItem>
-    <ListItem button>
+    {/* <ListItem button>
       <ListItemIcon>
         <DraftsIcon />
       </ListItemIcon>
       <ListItemText primary="Drafts" />
-    </ListItem>
+    </ListItem> */}
   </div>
 );
-
-// export const Menu2 = (
-//   <div>
-//     <ListItem button>
-//       <ListItemIcon>
-//         <MailIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="All mail" />
-//     </ListItem>
-//     <ListItem button>
-//       <ListItemIcon>
-//         <DeleteIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Trash" />
-//     </ListItem>
-//     <ListItem button>
-//       <ListItemIcon>
-//         <ReportIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Spam" />
-//     </ListItem>
-//   </div>
-// );
-
