@@ -7,6 +7,15 @@ const AppConfig = {
   // API
   api: {
     fakeEndPoint: 'api/somewhere'
+  },
+
+  // navigation
+  navigation: {
+    sidemenu: [
+      { label: 'Home', link: '/' },
+      { label: 'Protected', link: '/protected' },
+      { label: 'About', link: '/about' }
+    ]
   }
 };
 

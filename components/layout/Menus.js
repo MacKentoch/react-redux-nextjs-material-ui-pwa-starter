@@ -1,4 +1,5 @@
 // #flow
+
 import React          from 'react';
 import {
   ListItem,
@@ -8,7 +9,20 @@ import {
 import HomeIcon       from 'material-ui-icons/Home';
 import LockIcon       from 'material-ui-icons/Lock';
 import InfoIcon       from 'material-ui-icons/Info';
-// import DraftsIcon     from 'material-ui-icons/Drafts';
+import appConfig      from '../config/appConfig';
+
+// #region flow types
+type Sidemenu = {
+  label: string,
+  link: string
+};
+
+type Navigation = {
+  sidemenu: Sidemenu
+};
+// #endregion
+
+const nav: Navigation = appConfig.navigation.sidemenu;
 
 export const Menu1 = (
   <div>
@@ -30,11 +44,5 @@ export const Menu1 = (
       </ListItemIcon>
       <ListItemText primary="About" />
     </ListItem>
-    {/* <ListItem button>
-      <ListItemIcon>
-        <DraftsIcon />
-      </ListItemIcon>
-      <ListItemText primary="Drafts" />
-    </ListItem> */}
   </div>
 );

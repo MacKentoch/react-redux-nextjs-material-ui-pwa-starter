@@ -6,12 +6,6 @@ import React, {
 }                             from 'react';
 import Router                 from 'next/router';
 import Button                 from 'material-ui/Button';
-import Dialog, {
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-}                             from 'material-ui/Dialog';
 import Typography             from 'material-ui/Typography';
 import { withStyles }         from 'material-ui/styles';
 import withRoot               from '../HOC/withRoot';

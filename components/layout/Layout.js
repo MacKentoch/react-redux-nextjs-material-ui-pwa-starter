@@ -13,6 +13,7 @@ import IconButton         from 'material-ui/IconButton';
 import Hidden             from 'material-ui/Hidden';
 import Divider            from 'material-ui/Divider';
 import MenuIcon           from 'material-ui-icons/Menu';
+
 import {
   Menu1
   // Menu2
@@ -37,7 +38,7 @@ type State = {
 class Layout extends PureComponent<Props, State> {
   // #region state initialization
   state = {
-    mobileOpen: false,
+    mobileOpen: false
   };
   // #endregion
 
@@ -49,6 +50,12 @@ class Layout extends PureComponent<Props, State> {
       theme,
       // children:
       children
+    } = this.props;
+
+    const {
+      navigation: {
+        sidemenu
+      }
     } = this.props;
 
     const drawer = (

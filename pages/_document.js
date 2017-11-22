@@ -16,7 +16,7 @@ type Props = {
   ...any
 };
 
-type State = any;
+type State = any
 
 type InitialProps = {
   req: any,

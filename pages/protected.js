@@ -49,13 +49,14 @@ const styles = theme => ({
 });
 // #endregion
 
-class About extends PureComponent<Props, State> {
+class Protected extends PureComponent<Props, State> {
   // #region component lifecycle methods
   render() {
     const { classes } = this.props;
 
     return (
       <Layout>
+
         <Card className={classes.card}>
           <CardContent>
             <Typography
@@ -82,6 +83,7 @@ class About extends PureComponent<Props, State> {
             </Button>
           </CardActions>
         </Card>
+
       </Layout>
     );
   }
@@ -98,5 +100,5 @@ class About extends PureComponent<Props, State> {
   };
 }
 
-export default withRoot(withStyles(styles)(About));
+export default withRoot(withStyles(styles)(Protected));
 
