@@ -1,6 +1,9 @@
 // #flow
 
-import React          from 'react';
+import React, {
+  PureComponent
+}                     from 'react';
+import Router         from 'next/router';
 import {
   ListItem,
   ListItemIcon,
@@ -24,25 +27,40 @@ type Navigation = {
 
 const nav: Navigation = appConfig.navigation.sidemenu;
 
-export const Menu1 = (
-  <div>
-    <ListItem button>
-      <ListItemIcon>
-        <HomeIcon />
-      </ListItemIcon>
-      <ListItemText primary="Home" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LockIcon />
-      </ListItemIcon>
-      <ListItemText primary="Protected" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <InfoIcon />
-      </ListItemIcon>
-      <ListItemText primary="About" />
-    </ListItem>
-  </div>
-);
+class Menus extends PureComponent<Props, State> {
+  render() {
+    return (
+      <div>
+        <ListItem button>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <LockIcon />
+          </ListItemIcon>
+          <ListItemText primary="Protected" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon onPress={this.linkTo('/about')}>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary="About" />
+        </ListItem>
+      </div>
+    );
+  }
+
+  linkTo = (menuId: string) => (event: SyntheticEvent<>) => {
+    if (event) {
+      event.preventDefault();
+    }
+
+    Router.push({ pathname: '/' }); // back to Home
+  }
+}
+
+
+export default Menus;
