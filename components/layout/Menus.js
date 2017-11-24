@@ -1,65 +1,94 @@
-// #flow
+// @flow
 
 import React, {
   PureComponent
 }                     from 'react';
-import Router         from 'next/router';
+// import Router         from 'next/router';
+import Link           from 'next/link';
 import {
   ListItem,
   ListItemIcon,
   ListItemText
 }                     from 'material-ui/List';
-import HomeIcon       from 'material-ui-icons/Home';
-import LockIcon       from 'material-ui-icons/Lock';
 import InfoIcon       from 'material-ui-icons/Info';
-import appConfig      from '../config/appConfig';
+import Home           from 'material-ui-icons/Home';
+import appConfig      from '../../config/appConfig';
 
 // #region flow types
 type Sidemenu = {
+  id: string,
   label: string,
-  link: string
+  link: string,
+  icon: React$Element
 };
 
 type Navigation = {
   sidemenu: Sidemenu
 };
+
+type Props = {
+  ...any
+};
+
+type State = {
+  nav: Navigation,
+  ...any
+}
 // #endregion
 
-const nav: Navigation = appConfig.navigation.sidemenu;
-
 class Menus extends PureComponent<Props, State> {
+  state = {
+    nav: appConfig.navigation.sidemenu
+  };
+
   render() {
+    const {
+      nav
+    } = this.state;
+
     return (
       <div>
-        <ListItem button>
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <LockIcon />
-          </ListItemIcon>
-          <ListItemText primary="Protected" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon onPress={this.linkTo('/about')}>
-            <InfoIcon />
-          </ListItemIcon>
-          <ListItemText primary="About" />
-        </ListItem>
+        {
+          nav.map(
+            (menu, menuIdx) => {
+              return (
+                <ListItem
+                  key={menuIdx}
+                  button
+                >
+                  <Link
+                    prefetch
+                    href={'/'}
+                  >
+                    <ListItemIcon>
+                      <Home />
+                    </ListItemIcon>
+                  </Link>
+                  <ListItemText primary={'label'} />
+                </ListItem>
+              );
+            }
+          )
+        }
       </div>
     );
   }
+  // linkTo = (menuId: string) => (event: SyntheticEvent<>) => {
+  //   if (event) {
+  //     event.preventDefault();
+  //   }
 
-  linkTo = (menuId: string) => (event: SyntheticEvent<>) => {
-    if (event) {
-      event.preventDefault();
-    }
+  //   switch (menuId) {
+  //   case '':
 
-    Router.push({ pathname: '/' }); // back to Home
-  }
+  //     break;
+
+  //   default:
+  //     break;
+  //   }
+
+  //   Router.push({ pathname: '/' }); // back to Home
+  // }
 }
 
 

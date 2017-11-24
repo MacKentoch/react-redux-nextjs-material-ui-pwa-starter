@@ -13,11 +13,7 @@ import IconButton         from 'material-ui/IconButton';
 import Hidden             from 'material-ui/Hidden';
 import Divider            from 'material-ui/Divider';
 import MenuIcon           from 'material-ui-icons/Menu';
-
-import {
-  Menu1
-  // Menu2
-}                         from './Menus';
+import Menus              from './Menus';
 import styles             from './styles';
 // #endregion
 
@@ -52,17 +48,11 @@ class Layout extends PureComponent<Props, State> {
       children
     } = this.props;
 
-    const {
-      navigation: {
-        sidemenu
-      }
-    } = this.props;
-
     const drawer = (
       <div>
         <div className={classes.drawerHeader} />
         <Divider />
-        {Menu1}
+        <Menus />
         <Divider />
       </div>
     );

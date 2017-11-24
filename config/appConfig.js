@@ -12,9 +12,9 @@ const AppConfig = {
   // navigation
   navigation: {
     sidemenu: [
-      { label: 'Home', link: '/' },
-      { label: 'Protected', link: '/protected' },
-      { label: 'About', link: '/about' }
+      { id: 'home', label: 'Home', link: '/', icon: require('material-ui-icons/Home') },
+      { id: 'protected', label: 'Protected', link: '/protected', icon: require('material-ui-icons/Lock') },
+      { id: 'about', label: 'About', link: '/about', icon: require('material-ui-icons/Info') }
     ]
   }
 };
