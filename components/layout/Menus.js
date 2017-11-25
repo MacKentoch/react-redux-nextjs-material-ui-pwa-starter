@@ -11,7 +11,8 @@ import {
   ListItemText
 }                     from 'material-ui/List';
 import InfoIcon       from 'material-ui-icons/Info';
-import Home           from 'material-ui-icons/Home';
+import HomeIcon       from 'material-ui-icons/Home';
+import LockIcon       from 'material-ui-icons/Lock';
 import appConfig      from '../../config/appConfig';
 
 // #region flow types
@@ -50,7 +51,22 @@ class Menus extends PureComponent<Props, State> {
       <div>
         {
           nav.map(
-            (menu, menuIdx) => {
+            ({ label, icon, link }, menuIdx) => {
+              let Icon = null;
+              switch (icon) {
+              case 'home':
+                Icon = (props) => <HomeIcon {...props} />;
+                break;
+              case 'protected':
+                Icon = (props) => <LockIcon {...props} />;
+                break;
+              case 'about':
+                Icon = (props) => <InfoIcon {...props} />;
+                break;
+              default:
+                Icon = (props) => <InfoIcon {...props} />;
+              }
+
               return (
                 <ListItem
                   key={menuIdx}
@@ -58,13 +74,13 @@ class Menus extends PureComponent<Props, State> {
                 >
                   <Link
                     prefetch
-                    href={'/'}
+                    href={link}
                   >
                     <ListItemIcon>
-                      <Home />
+                      {Icon}
                     </ListItemIcon>
                   </Link>
-                  <ListItemText primary={'label'} />
+                  <ListItemText primary={label} />
                 </ListItem>
               );
             }
