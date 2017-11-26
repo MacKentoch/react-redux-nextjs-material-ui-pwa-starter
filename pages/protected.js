@@ -63,7 +63,7 @@ class Protected extends PureComponent<Props, State> {
               type="display1"
               gutterBottom
             >
-              About
+              Protected
             </Typography>
 
             <Typography
