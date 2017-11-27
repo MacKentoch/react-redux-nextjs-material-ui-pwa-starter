@@ -7,10 +7,6 @@ import React, {
 import Router                 from 'next/router';
 import Button                 from 'material-ui/Button';
 import Typography             from 'material-ui/Typography';
-import Card, {
-  CardActions,
-  CardContent
-}                             from 'material-ui/Card';
 import { withStyles }         from 'material-ui/styles';
 import withRoot               from '../HOC/withRoot';
 import Layout                 from '../components/layout/Layout';
@@ -52,36 +48,28 @@ const styles = theme => ({
 class About extends PureComponent<Props, State> {
   // #region component lifecycle methods
   render() {
-    const { classes } = this.props;
-
     return (
       <Layout>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography
-              type="display1"
-              gutterBottom
-            >
-              About
-            </Typography>
+        <Typography
+          type="display1"
+          gutterBottom
+        >
+          About
+        </Typography>
 
-            <Typography
-              type="subheading"
-              gutterBottom
-            >
-              example project
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button
-              raised
-              color="accent"
-              onClick={this.handleClick}
-            >
-              Go back Home
-            </Button>
-          </CardActions>
-        </Card>
+        <Typography
+          type="subheading"
+          gutterBottom
+        >
+          example project
+        </Typography>
+        <Button
+          raised
+          color="accent"
+          onClick={this.handleClick}
+        >
+          Go back Home
+        </Button>
       </Layout>
     );
   }

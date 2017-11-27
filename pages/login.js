@@ -239,7 +239,6 @@ class Login extends PureComponent<Props, State> {
                     <br />
                     <p>
                       <Button
-                        bsStyle="primary"
                         onClick={this.handleAlertDismiss}
                       >
                         Back to Home

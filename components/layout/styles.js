@@ -48,6 +48,9 @@ const styles = theme => ({
       marginTop: 64,
     },
   },
+  flexible: {
+    flex: 1
+  }
 });
 
 // const styles = theme => ({

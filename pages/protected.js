@@ -7,13 +7,10 @@ import React, {
 import Router                 from 'next/router';
 import Button                 from 'material-ui/Button';
 import Typography             from 'material-ui/Typography';
-import Card, {
-  CardActions,
-  CardContent
-}                             from 'material-ui/Card';
 import { withStyles }         from 'material-ui/styles';
 import withRoot               from '../HOC/withRoot';
 import Layout                 from '../components/layout/Layout';
+import PrivateRoute           from '../components/privateRoute/PrivateRoute';
 // #endregion
 
 // #region flow types
@@ -52,39 +49,36 @@ const styles = theme => ({
 class Protected extends PureComponent<Props, State> {
   // #region component lifecycle methods
   render() {
-    const { classes } = this.props;
-
     return (
-      <Layout>
+      <PrivateRoute
+        fromPath="/protected"
+      >
+        <Layout>
 
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography
-              type="display1"
-              gutterBottom
-            >
+          <Typography
+            type="display1"
+            gutterBottom
+          >
               Protected
-            </Typography>
+          </Typography>
 
-            <Typography
-              type="subheading"
-              gutterBottom
-            >
+          <Typography
+            type="subheading"
+            gutterBottom
+          >
               example project
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button
-              raised
-              color="accent"
-              onClick={this.handleClick}
-            >
-              Go back Home
-            </Button>
-          </CardActions>
-        </Card>
+          </Typography>
 
-      </Layout>
+          <Button
+            raised
+            color="accent"
+            onClick={this.handleClick}
+          >
+              Go back Home
+          </Button>
+
+        </Layout>
+      </PrivateRoute>
     );
   }
   // #endregion

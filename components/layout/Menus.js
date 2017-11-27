@@ -24,53 +24,56 @@ class Menus extends PureComponent<Props, State> {
   render() {
     return (
       <div>
-        <ListItem
-          button
+        <Link
+          prefetch
+          href={'/'}
+          passHref
         >
-          <Link
-            prefetch
-            href={'/'}
+          <ListItem
+            button
           >
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
-          </Link>
-          <ListItemText
-            primary={'Home'}
-          />
-        </ListItem>
 
-        <ListItem
-          button
+            <ListItemText
+              primary={'Home'}
+            />
+          </ListItem>
+        </Link>
+        <Link
+          prefetch
+          href={'/protected'}
+          passHref
         >
-          <Link
-            prefetch
-            href={'/protected'}
+          <ListItem
+            button
           >
             <ListItemIcon>
               <LockIcon />
             </ListItemIcon>
-          </Link>
-          <ListItemText
-            primary={'Protected'}
-          />
-        </ListItem>
-
-        <ListItem
-          button
+            <ListItemText
+              primary={'Protected'}
+            />
+          </ListItem>
+        </Link>
+        <Link
+          prefetch
+          href={'/about'}
+          passHref
         >
-          <Link
-            prefetch
-            href={'/about'}
+          <ListItem
+            button
           >
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
-          </Link>
-          <ListItemText
-            primary={'About'}
-          />
-        </ListItem>
+
+            <ListItemText
+              primary={'About'}
+            />
+          </ListItem>
+        </Link>
       </div>
     );
   }

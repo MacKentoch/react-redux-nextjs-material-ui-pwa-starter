@@ -12,6 +12,8 @@ import Typography         from 'material-ui/Typography';
 import IconButton         from 'material-ui/IconButton';
 import Hidden             from 'material-ui/Hidden';
 import Divider            from 'material-ui/Divider';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import AccountCircle      from 'material-ui-icons/AccountCircle';
 import MenuIcon           from 'material-ui-icons/Menu';
 import Menus              from './Menus';
 import styles             from './styles';
@@ -27,14 +29,17 @@ type Props = {
 }
 
 type State = {
-  mobileOpen: boolean
+  mobileOpen: boolean,
+  anchorEl: any
 };
 // #endregion
+
 
 class Layout extends PureComponent<Props, State> {
   // #region state initialization
   state = {
-    mobileOpen: false
+    mobileOpen: false,
+    anchorEl: null,
   };
   // #endregion
 
@@ -48,6 +53,10 @@ class Layout extends PureComponent<Props, State> {
       children
     } = this.props;
 
+    const {
+      anchorEl
+    } = this.state;
+
     const drawer = (
       <div>
         <div className={classes.drawerHeader} />
@@ -57,6 +66,8 @@ class Layout extends PureComponent<Props, State> {
       </div>
     );
 
+    const open = Boolean(anchorEl);
+
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -65,6 +76,7 @@ class Layout extends PureComponent<Props, State> {
             elevation={0}
           >
             <Toolbar>
+              {/* burger menu */}
               <IconButton
                 color="contrast"
                 aria-label="open drawer"
@@ -73,12 +85,61 @@ class Layout extends PureComponent<Props, State> {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography type="title" color="inherit" noWrap>
+
+              {/* title */}
+              <Typography
+                type="title"
+                color="inherit"
+                noWrap
+              >
                 PWA Next Material UI
               </Typography>
+
+              {/* a filler */}
+              <div className={classes.flexible} />
+
+              { /* right actions */ }
+              <div>
+                <IconButton
+                  aria-owns={open ? 'menu-appbar' : null}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="contrast"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onRequestClose={this.handleRequestClose}
+                >
+                  <MenuItem
+                    onClick={this.handleRequestClose}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={this.handleRequestClose}
+                  >
+                    My account
+                  </MenuItem>
+                </Menu>
+              </div>
             </Toolbar>
           </AppBar>
-          <Hidden mdUp>
+          {/* sidemenu small screen: */}
+          <Hidden
+            mdUp
+          >
             <Drawer
               type="temporary"
               anchor={theme.direction === 'rtl' ? 'right' : 'left'}
@@ -94,7 +155,11 @@ class Layout extends PureComponent<Props, State> {
               {drawer}
             </Drawer>
           </Hidden>
-          <Hidden mdDown implementation="css">
+          {/* sidemenu medium to large screen: */}
+          <Hidden
+            mdDown
+            implementation="css"
+          >
             <Drawer
               type="permanent"
               open
@@ -105,7 +170,9 @@ class Layout extends PureComponent<Props, State> {
               {drawer}
             </Drawer>
           </Hidden>
-          <main className={classes.content}>
+          <main
+            className={classes.content}
+          >
             { children }
           </main>
         </div>
@@ -118,6 +185,16 @@ class Layout extends PureComponent<Props, State> {
   handleDrawerToggle = () => this.setState(
     ({mobileOpen: prevMobileOpen}: State) => ({ mobileOpen: !prevMobileOpen })
   );
+  // #endregion
+
+  // #region appBar action menu
+  handleMenu = (event: SyntheticEvent<>) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleRequestClose = () => {
+    this.setState({ anchorEl: null });
+  };
   // #endregion
 }
 
