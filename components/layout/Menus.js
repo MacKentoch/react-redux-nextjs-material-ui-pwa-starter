@@ -1,18 +1,20 @@
 // @flow
 
+// #region imports
 import React, {
   PureComponent
-}                     from 'react';
-// import Router         from 'next/router';
-import Link           from 'next/link';
+}                             from 'react';
+// import Router                from 'next/router';
+import Link                   from 'next/link';
 import {
   ListItem,
   ListItemIcon,
   ListItemText
-}                     from 'material-ui/List';
-import InfoIcon       from 'material-ui-icons/Info';
-import HomeIcon       from 'material-ui-icons/Home';
-import LockIcon       from 'material-ui-icons/Lock';
+}                             from 'material-ui/List';
+import InfoIcon               from 'material-ui-icons/Info';
+import HomeIcon               from 'material-ui-icons/Home';
+import LockIcon               from 'material-ui-icons/Lock';
+// #endregion
 
 // #region flow types
 type Props = {
@@ -79,5 +81,6 @@ class Menus extends PureComponent<Props, State> {
   }
 }
 
-
 export default Menus;
+
+

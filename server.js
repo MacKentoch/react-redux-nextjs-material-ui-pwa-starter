@@ -30,11 +30,9 @@ async function prepareNextApplication() {
   // server.get('/a', (req, res) => app.render(req, res, '/b', req.query));
   // server.get('/b', (req, res) => app.render(req, res, '/a', req.query));
 
-  // handles service worker file request:
-  server.get('/sw.js', (req, res) => {
-    res.setHeader('content-type', 'text/javascript');
-    createReadStream('./offline/serviceWorker.js').pipe(res);
-  });
+  // #region handles service worker file request (NOTE: it won't work in dev mode but production only):
+  server.get('/service-worker.js', (req, res) => app.serveStatic(req, res, '.next/service-worker.js'));
+  // #endregion
 
   // default request handler by next handler:
   server.get('*', (req, res) => handle(req, res));
@@ -48,9 +46,9 @@ async function prepareNextApplication() {
 
       /* eslint-disable no-console */
       console.log(`
-        =====================================================
-        -> Server (${chalk.bgBlue('NextJS PWA')}) 🏃 (running) on ${chalk.green(ipAdress)}:${chalk.green(port)}
-        =====================================================
+        =====================================================================================
+        -> Server (${chalk.bgBlue('react-redux-nextjs-material-ui-pwa-starter')}) 🏃 (running) on ${chalk.green(ipAdress)}:${chalk.green(port)}
+        =====================================================================================
       `);
       /* eslint-enable no-console */
     }

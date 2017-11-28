@@ -1,3 +1,5 @@
+// no more used, now using "sw-precache-webpack-plugin" (for production only)
+
 // service workers rocks: https://developers.google.com/web/fundamentals/primers/service-workers/
 const CACHE_NAME  = 'rrnm-cache-v1';
 const urlsToCache = [

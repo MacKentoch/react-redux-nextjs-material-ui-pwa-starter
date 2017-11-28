@@ -69,12 +69,14 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-jss": "^7.2.0",
+    "react-overdrive": "^0.0.9",
     "react-redux": "^5.0.6",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-persist": "^4.10.1",
     "redux-thunk": "^2.2.0",
-    "smoothscroll-polyfill": "^0.4.0"
+    "smoothscroll-polyfill": "^0.4.0",
+    "sw-precache-webpack-plugin": "^0.11.4"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",

@@ -158,7 +158,8 @@ class Login extends PureComponent<Props, State> {
                         id="inputEmail"
                         value={email}
                         placeholder="your email"
-                        onChange={this.handlesOnEmailChange}
+                        // onChange={this.handlesOnEmailChange}
+                        onInput={this.handlesOnEmailChange} // browser autofill would not fire onChange
                         startAdornment={<InputAdornment position="start"><MailOutline /></InputAdornment>}
                       />
                     </FormControl>
@@ -176,7 +177,8 @@ class Login extends PureComponent<Props, State> {
                         id="inputPassword"
                         value={password}
                         placeholder="your password"
-                        onChange={this.handlesOnPasswordChange}
+                        // onChange={this.handlesOnPasswordChange}
+                        onInput={this.handlesOnPasswordChange} // browser autofill would not fire onChange
                         startAdornment={<InputAdornment position="start"><LockOutline /></InputAdornment>}
                       />
                     </FormControl>
@@ -192,7 +194,7 @@ class Login extends PureComponent<Props, State> {
                           <Button
                             raised
                             color="accent"
-                            //outline
+                            // outline
                             disabled={isLogging}
                             onClick={this.handlesOnLogin}
                           >

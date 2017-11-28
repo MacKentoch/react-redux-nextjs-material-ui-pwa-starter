@@ -3,25 +3,36 @@
 // #region imports
 import React, {
   PureComponent
-}                         from 'react';
-import { withStyles }     from 'material-ui/styles';
-import Drawer             from 'material-ui/Drawer';
-import AppBar             from 'material-ui/AppBar';
-import Toolbar            from 'material-ui/Toolbar';
-import Typography         from 'material-ui/Typography';
-import IconButton         from 'material-ui/IconButton';
-import Hidden             from 'material-ui/Hidden';
-import Divider            from 'material-ui/Divider';
-import Menu, { MenuItem } from 'material-ui/Menu';
-import AccountCircle      from 'material-ui-icons/AccountCircle';
-import MenuIcon           from 'material-ui-icons/Menu';
-import Menus              from './Menus';
-import styles             from './styles';
+}                             from 'react';
+import { bindActionCreators } from 'redux';
+import withRedux              from 'next-redux-wrapper';
+import { withStyles }         from 'material-ui/styles';
+import Drawer                 from 'material-ui/Drawer';
+import AppBar                 from 'material-ui/AppBar';
+import Toolbar                from 'material-ui/Toolbar';
+import Typography             from 'material-ui/Typography';
+import IconButton             from 'material-ui/IconButton';
+import Hidden                 from 'material-ui/Hidden';
+import Divider                from 'material-ui/Divider';
+import Menu, { MenuItem }     from 'material-ui/Menu';
+import AccountCircle          from 'material-ui-icons/AccountCircle';
+import MenuIcon               from 'material-ui-icons/Menu';
+import Menus                  from './Menus';
+import styles                 from './styles';
+import configureStore         from '../../redux/store/configureStore';
+import * as userAuthActions   from '../../redux/modules/userAuth';
 // #endregion
 
 // #region flow types
 type Props = {
   children: ReactNode,
+
+  // userAuth:
+  isAuthenticated: boolean,
+  isFetching: boolean,
+  isLogging: boolean,
+  disconnectUser: () => string,
+
 
   // withStyle injected
   classes: any,
@@ -50,7 +61,10 @@ class Layout extends PureComponent<Props, State> {
       classes,
       theme,
       // children:
-      children
+      children,
+      // userAuth
+      isAuthenticated,
+      disconnectUser
     } = this.props;
 
     const {
@@ -99,41 +113,65 @@ class Layout extends PureComponent<Props, State> {
               <div className={classes.flexible} />
 
               { /* right actions */ }
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="contrast"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onRequestClose={this.handleRequestClose}
-                >
-                  <MenuItem
-                    onClick={this.handleRequestClose}
-                  >
-                    Profile
-                  </MenuItem>
-                  <MenuItem
-                    onClick={this.handleRequestClose}
-                  >
-                    My account
-                  </MenuItem>
-                </Menu>
-              </div>
+              {
+                isAuthenticated
+                  ?
+                  (
+                    <div>
+                      <IconButton
+                        aria-owns={open ? 'menu-appbar' : null}
+                        aria-haspopup="true"
+                        onClick={this.handleMenu}
+                        color="contrast"
+                      >
+                        <AccountCircle />
+                      </IconButton>
+                      <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        open={open}
+                        onRequestClose={this.handleRequestClose}
+                      >
+                        <MenuItem
+                          onClick={this.handleRequestClose}
+                        >
+                          Profile
+                        </MenuItem>
+                        <MenuItem
+                          onClick={this.handleRequestClose}
+                        >
+                          My account
+                        </MenuItem>
+                        <MenuItem
+                          onClick={disconnectUser}
+                        >
+                          Disconnect
+                        </MenuItem>
+                      </Menu>
+                    </div>
+                  )
+                  :
+                  (
+                    <div>
+                      <IconButton
+                        aria-owns={open ? 'menu-appbar' : null}
+                        aria-haspopup="true"
+                        onClick={this.handleMenu}
+                        color="contrast"
+                      >
+                        <AccountCircle />
+                      </IconButton>
+                    </div>
+                  )
+              }
             </Toolbar>
           </AppBar>
           {/* sidemenu small screen: */}
@@ -198,4 +236,34 @@ class Layout extends PureComponent<Props, State> {
   // #endregion
 }
 
-export default withStyles(styles, { withTheme: true })(Layout);
+// #region redux state and dispatch map to props
+const mapStateToProps = (
+  state: any
+) => ({
+  // userAuth:
+  isAuthenticated: state.userAuth.isAuthenticated,
+  isFetching:      state.userAuth.isFetching,
+  isLogging:       state.userAuth.isLogging
+});
+
+const mapDispatchToProps = (
+  dispatch: (...any) => any
+) => {
+  return {
+    ...bindActionCreators(
+      {
+        // userAuth:
+        ...userAuthActions
+      },
+      dispatch)
+  };
+};
+// #endregion
+
+export default withRedux(
+  configureStore,
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withStyles(styles, { withTheme: true })(Layout)
+);
