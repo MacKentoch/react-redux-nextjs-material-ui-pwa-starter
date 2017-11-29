@@ -6,6 +6,7 @@ import React, {
 }                             from 'react';
 import { bindActionCreators } from 'redux';
 import withRedux              from 'next-redux-wrapper';
+import Link                   from 'next/link';
 import { withStyles }         from 'material-ui/styles';
 import Drawer                 from 'material-ui/Drawer';
 import AppBar                 from 'material-ui/AppBar';
@@ -161,14 +162,20 @@ class Layout extends PureComponent<Props, State> {
                   :
                   (
                     <div>
-                      <IconButton
-                        aria-owns={open ? 'menu-appbar' : null}
-                        aria-haspopup="true"
-                        onClick={this.handleMenu}
-                        color="contrast"
+                      <Link
+                        prefetch
+                        href={'/login'}
+                        passHref
                       >
-                        <AccountCircle />
-                      </IconButton>
+                        <IconButton
+                          aria-owns={open ? 'menu-appbar' : null}
+                          aria-haspopup="true"
+                          onClick={this.handleMenu}
+                          color="contrast"
+                        >
+                          <AccountCircle />
+                        </IconButton>
+                      </Link>
                     </div>
                   )
               }
