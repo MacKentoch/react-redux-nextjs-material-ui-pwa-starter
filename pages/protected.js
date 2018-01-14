@@ -4,13 +4,18 @@
 import React, {
   PureComponent
 }                             from 'react';
+import { bindActionCreators } from 'redux';
+import withRedux              from 'next-redux-wrapper';
 import Router                 from 'next/router';
+import compose                from 'recompose/compose';
 import Button                 from 'material-ui/Button';
 import Typography             from 'material-ui/Typography';
 import { withStyles }         from 'material-ui/styles';
 import withRoot               from '../HOC/withRoot';
 import Layout                 from '../components/layout/Layout';
 import PrivateRoute           from '../components/privateRoute/PrivateRoute';
+import configureStore         from '../redux/store/configureStore';
+import * as userAuthActions   from '../redux/modules/userAuth';
 // #endregion
 
 // #region flow types
@@ -94,5 +99,34 @@ class Protected extends PureComponent<Props, State> {
   };
 }
 
-export default withRoot(withStyles(styles)(Protected));
+// #region redux state and dispatch map to props
+const mapStateToProps = (
+  state: any
+) => ({
+  // userAuth:
+  isAuthenticated: state.userAuth.isAuthenticated,
+});
 
+const mapDispatchToProps = (
+  dispatch: (...any) => any
+) => {
+  return {
+    ...bindActionCreators(
+      {
+        // userAuth:
+        ...userAuthActions
+      },
+      dispatch)
+  };
+};
+// #endregion
+
+export default compose(
+  withRedux(
+    configureStore,
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withRoot,
+  withStyles(styles),
+)(Protected);

@@ -5,7 +5,7 @@ import React, {
   PureComponent
 }                             from 'react';
 import { bindActionCreators } from 'redux';
-import withRedux              from 'next-redux-wrapper';
+import { connect }            from 'react-redux';
 import Link                   from 'next/link';
 import { withStyles }         from 'material-ui/styles';
 import Drawer                 from 'material-ui/Drawer';
@@ -18,9 +18,9 @@ import Divider                from 'material-ui/Divider';
 import Menu, { MenuItem }     from 'material-ui/Menu';
 import AccountCircle          from 'material-ui-icons/AccountCircle';
 import MenuIcon               from 'material-ui-icons/Menu';
+import compose                from 'recompose/compose';
 import Menus                  from './Menus';
 import styles                 from './styles';
-import configureStore         from '../../redux/store/configureStore';
 import * as userAuthActions   from '../../redux/modules/userAuth';
 // #endregion
 
@@ -267,10 +267,10 @@ const mapDispatchToProps = (
 };
 // #endregion
 
-export default withRedux(
-  configureStore,
-  mapStateToProps,
-  mapDispatchToProps
-)(
-  withStyles(styles, { withTheme: true })(Layout)
-);
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withStyles(styles, { withTheme: true })
+)(Layout);

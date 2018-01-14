@@ -5,9 +5,13 @@ import React, {
   PureComponent
 }                             from 'react';
 import Router                 from 'next/router';
+import { bindActionCreators } from 'redux';
 import Button                 from 'material-ui/Button';
 import Typography             from 'material-ui/Typography';
 import { withStyles }         from 'material-ui/styles';
+import withRedux              from 'next-redux-wrapper';
+import compose                from 'recompose/compose';
+import configureStore         from '../redux/store/configureStore';
 import withRoot               from '../HOC/withRoot';
 import Layout                 from '../components/layout/Layout';
 // #endregion
@@ -98,5 +102,25 @@ class Index extends PureComponent<Props, State> {
   };
 }
 
-export default withRoot(withStyles(styles)(Index));
+// #region redux state and dispatch map to props
+const mapStateToProps = (state: any) => ({ });
+
+const mapDispatchToProps = (
+  dispatch: (...any) => any
+) => {
+  return {
+    ...bindActionCreators({}, dispatch)
+  };
+};
+// #endregion
+
+export default compose(
+  withRedux(
+    configureStore,
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withRoot,
+  withStyles(styles),
+)(Index);
 

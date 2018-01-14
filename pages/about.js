@@ -4,12 +4,16 @@
 import React, {
   PureComponent
 }                             from 'react';
+import { bindActionCreators } from 'redux';
+import withRedux              from 'next-redux-wrapper';
 import Router                 from 'next/router';
+import compose                from 'recompose/compose';
 import Button                 from 'material-ui/Button';
 import Typography             from 'material-ui/Typography';
 import { withStyles }         from 'material-ui/styles';
 import withRoot               from '../HOC/withRoot';
 import Layout                 from '../components/layout/Layout';
+import configureStore         from '../redux/store/configureStore';
 // #endregion
 
 // #region flow types
@@ -86,5 +90,30 @@ class About extends PureComponent<Props, State> {
   };
 }
 
-export default withRoot(withStyles(styles)(About));
+// #region redux state and dispatch map to props
+const mapStateToProps = (
+  state: any
+) => ({
+  // nothing right now
+});
+
+const mapDispatchToProps = (
+  dispatch: (...any) => any
+) => {
+  return {
+    ...bindActionCreators({ }, dispatch)
+  };
+};
+// #endregion
+
+export default compose(
+  withRedux(
+    configureStore,
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withRoot,
+  withStyles(styles),
+)(About);
+
 

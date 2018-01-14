@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import withRedux              from 'next-redux-wrapper';
 import debounce               from 'es6-promise-debounce';
 import Router                 from 'next/router';
+import compose                from 'recompose/compose';
 import Button                 from 'material-ui/Button';
 import Snackbar               from 'material-ui/Snackbar';
 import Slide                  from 'material-ui/transitions/Slide';
@@ -409,11 +410,12 @@ const mapDispatchToProps = (
 };
 // #endregion
 
-export default withRedux(
-  configureStore,
-  mapStateToProps,
-  mapDispatchToProps
-)(
-  withRoot(withStyles(styles)(Login))
-);
-
+export default compose(
+  withRedux(
+    configureStore,
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withRoot,
+  withStyles(styles),
+)(Login);
