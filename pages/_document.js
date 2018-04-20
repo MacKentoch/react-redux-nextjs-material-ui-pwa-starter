@@ -1,23 +1,29 @@
 // @flow
 
 // #region imports
-import React                  from 'react';
-import Document, {
-  Head,
-  Main,
-  NextScript
-}                             from 'next/document';
-import JssProvider            from 'react-jss/lib/JssProvider';
-import getContext             from '../styles/getContext';
-import registerServiceWorker  from '../services/registerServiceWorker';
+import React from 'react';
+import Document, { Head, Main, NextScript } from 'next/document';
+import JssProvider from 'react-jss/lib/JssProvider';
+import getContext from '../styles/getContext';
+import registerServiceWorker from '../services/registerServiceWorker';
+// #endregion
+
+// #region global vars or polyfill
+
+if (process.browser) {
+  // eslint-disable-next-line global-require
+  require('smoothscroll-polyfill').polyfill();
+  // force polyfill
+  window.__forceSmoothScrollPolyfill__ = true;
+}
 // #endregion
 
 // #region flow types
 type Props = {
-  ...any
+  ...any,
 };
 
-type State = any
+type State = any;
 
 type InitialProps = {
   req: any,
@@ -27,8 +33,8 @@ type InitialProps = {
   asPath: string,
   isServer: boolean,
   store?: any,
-  ...any
-}
+  ...any,
+};
 // #endregion
 
 class RootDocument extends Document<Props, State> {
@@ -53,16 +59,11 @@ class RootDocument extends Document<Props, State> {
 
     // Get the context to collected side effects.
     const context = getContext();
-    const page    = initProps.renderPage(
-      Component => props => (
-        <JssProvider
-          registry={context.sheetsRegistry}
-          jss={context.jss}
-        >
-          <Component {...props} />
-        </JssProvider>
-      )
-    );
+    const page = initProps.renderPage(Component => props => (
+      <JssProvider registry={context.sheetsRegistry} jss={context.jss}>
+        <Component {...props} />
+      </JssProvider>
+    ));
 
     return {
       ...page,
@@ -71,9 +72,11 @@ class RootDocument extends Document<Props, State> {
         <style
           id="jss-server-side"
           // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: context.sheetsRegistry.toString() }}
+          dangerouslySetInnerHTML={{
+            __html: context.sheetsRegistry.toString(),
+          }}
         />
-      )
+      ),
     };
   }
   // #endregion
@@ -92,21 +95,51 @@ class RootDocument extends Document<Props, State> {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta charSet="utf-8" />
 
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+          />
 
-          <meta name="application-name" content="react-redux-nextjs-material-ui-pwa-starter" />
+          <meta
+            name="application-name"
+            content="react-redux-nextjs-material-ui-pwa-starter"
+          />
           <link rel="manifest" href="static/manifest.json" />
 
-          <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png" />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="static/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="static/favicon-16x16.png"
+          />
           <meta name="theme-color" content="#1967be" />
 
-          <link rel="mask-icon" href="static/safari-pinned-tab.svg" color="#1967be" />
+          <link
+            rel="mask-icon"
+            href="static/safari-pinned-tab.svg"
+            color="#1967be"
+          />
           <meta name="apple-mobile-web-app-title" content="Next PWA Starter" />
-          <link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png" />
-          <link rel="apple-touch-startup-image" href="static/apple-touch-icon.png" />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="static/apple-touch-icon.png"
+          />
+          <link
+            rel="apple-touch-startup-image"
+            href="static/apple-touch-icon.png"
+          />
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-title" content="react-redux-nextjs-material-ui-pwa-starter" />
+          <meta
+            name="apple-mobile-web-app-title"
+            content="react-redux-nextjs-material-ui-pwa-starter"
+          />
           {/* <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /> */}
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
           <style>{`

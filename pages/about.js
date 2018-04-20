@@ -1,29 +1,27 @@
 // @flow
 
 // #region imports
-import React, {
-  PureComponent
-}                             from 'react';
+import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
-import withRedux              from 'next-redux-wrapper';
-import Router                 from 'next/router';
-import compose                from 'recompose/compose';
-import Button                 from 'material-ui/Button';
-import Typography             from 'material-ui/Typography';
-import { withStyles }         from 'material-ui/styles';
-import withRoot               from '../HOC/withRoot';
-import Layout                 from '../components/layout/Layout';
-import configureStore         from '../redux/store/configureStore';
+import withRedux from 'next-redux-wrapper';
+import Router from 'next/router';
+import compose from 'recompose/compose';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
+import withRoot from '../HOC/withRoot';
+import Layout from '../components/layout/Layout';
+import configureStore from '../redux/store/configureStore';
 // #endregion
 
 // #region flow types
 type Props = {
   classes: any,
-  ...any
+  ...any,
 };
 
 type State = {
-  ...any
+  ...any,
 };
 // #endregion
 
@@ -54,24 +52,14 @@ class About extends PureComponent<Props, State> {
   render() {
     return (
       <Layout>
-        <Typography
-          type="display1"
-          gutterBottom
-        >
+        <Typography type="display1" gutterBottom>
           About
         </Typography>
 
-        <Typography
-          type="subheading"
-          gutterBottom
-        >
+        <Typography type="subheading" gutterBottom>
           example project
         </Typography>
-        <Button
-          raised
-          color="accent"
-          onClick={this.handleClick}
-        >
+        <Button raised color="accent" onClick={this.handleClick}>
           Go back Home
         </Button>
       </Layout>
@@ -81,7 +69,7 @@ class About extends PureComponent<Props, State> {
 
   handleRequestClose = () => {
     this.setState({
-      open: false
+      open: false,
     });
   };
 
@@ -91,29 +79,19 @@ class About extends PureComponent<Props, State> {
 }
 
 // #region redux state and dispatch map to props
-const mapStateToProps = (
-  state: any
-) => ({
+const mapStateToProps = state => ({
   // nothing right now
 });
 
-const mapDispatchToProps = (
-  dispatch: (...any) => any
-) => {
+const mapDispatchToProps = (dispatch: (...any) => any) => {
   return {
-    ...bindActionCreators({ }, dispatch)
+    ...bindActionCreators({}, dispatch),
   };
 };
 // #endregion
 
 export default compose(
-  withRedux(
-    configureStore,
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  withRedux(configureStore, mapStateToProps, mapDispatchToProps),
   withRoot,
   withStyles(styles),
 )(About);
-
-

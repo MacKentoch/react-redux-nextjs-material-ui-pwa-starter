@@ -45,7 +45,10 @@
     //
     // The following rules point out areas where you might have made mistakes.
     //
-    "comma-dangle": 0, // disallow or enforce trailing commas
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
     "no-cond-assign": 2, // disallow assignment in conditional expressions
     "no-console": 1, // disallow use of console (off by default in the node environment)
     "no-constant-condition": 2, // disallow use of constant expressions in conditions
@@ -175,10 +178,7 @@
     //
     // These rules are purely matters of style and are quite subjective.
     //
-    "indent": [
-      1,
-      2
-    ], // this option sets a specific tab width for your code (off by default)
+    "indent": 0,
     "brace-style": 1, // enforce one true brace style (off by default)
     "camelcase": 1, // require camel case names
     "comma-spacing": [
@@ -264,7 +264,7 @@
     "space-before-function-paren": [
       1,
       {
-        "anonymous": "always",
+        "anonymous": "never",
         "named": "never"
       }
     ], // require or disallow space before function opening parenthesis (off by default)
@@ -334,6 +334,8 @@
     "react/jsx-sort-props": 0, // Enforce props alphabetical sorting
     "react/jsx-uses-react": 2, // Prevent React to be incorrectly marked as unused
     "react/jsx-uses-vars": 2, // Prevent variables used in JSX to be incorrectly marked as unused
+    // "react/jsx-first-prop-new-line": "multiline-multiprop",
+    // "react/jsx-max-props-per-line": [1, { "when": "always" }],
     // "react/no-did-mount-set-state": [2, "allow-in-func"], // Prevent usage of setState in componentDidMount
     // "react/no-did-update-set-state": 2, // Prevent usage of setState in componentDidUpdate
     "react/no-multi-comp": 0, // Prevent multiple component definition per file

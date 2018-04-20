@@ -1,29 +1,27 @@
 // @flow
 
 // #region imports
-import React, {
-  PureComponent
-}                             from 'react';
-import Router                 from 'next/router';
+import React, { PureComponent } from 'react';
+import Router from 'next/router';
 import { bindActionCreators } from 'redux';
-import Button                 from 'material-ui/Button';
-import Typography             from 'material-ui/Typography';
-import { withStyles }         from 'material-ui/styles';
-import withRedux              from 'next-redux-wrapper';
-import compose                from 'recompose/compose';
-import configureStore         from '../redux/store/configureStore';
-import withRoot               from '../HOC/withRoot';
-import Layout                 from '../components/layout/Layout';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
+import withRedux from 'next-redux-wrapper';
+import compose from 'recompose/compose';
+import configureStore from '../redux/store/configureStore';
+import withRoot from '../HOC/withRoot';
+import Layout from '../components/layout/Layout';
 // #endregion
 
 // #region flow types
 type Props = {
   classes: any,
-  ...any
+  ...any,
 };
 
 type State = {
-  ...any
+  ...any,
 };
 // #endregion
 
@@ -31,8 +29,8 @@ type State = {
 const styles = {
   root: {
     textAlign: 'center',
-    paddingTop: 200
-  }
+    paddingTop: 200,
+  },
 };
 // #endregion
 class Index extends PureComponent<Props, State> {
@@ -60,30 +58,19 @@ class Index extends PureComponent<Props, State> {
   // }
   // #endregion
 
-
   // #region component lifecycle methods
   render() {
     return (
       <Layout>
-        <Typography
-          type="display1"
-          gutterBottom
-        >
+        <Typography type="display1" gutterBottom>
           Material-UI
         </Typography>
 
-        <Typography
-          type="subheading"
-          gutterBottom
-        >
+        <Typography type="subheading" gutterBottom>
           example project
         </Typography>
 
-        <Button
-          raised
-          color="accent"
-          onClick={this.handleClick}
-        >
+        <Button raised color="accent" onClick={this.handleClick}>
           Login
         </Button>
       </Layout>
@@ -93,7 +80,7 @@ class Index extends PureComponent<Props, State> {
 
   handleRequestClose = () => {
     this.setState({
-      open: false
+      open: false,
     });
   };
 
@@ -103,24 +90,17 @@ class Index extends PureComponent<Props, State> {
 }
 
 // #region redux state and dispatch map to props
-const mapStateToProps = (state: any) => ({ });
+const mapStateToProps = (state: any) => ({});
 
-const mapDispatchToProps = (
-  dispatch: (...any) => any
-) => {
+const mapDispatchToProps = (dispatch: (...any) => any) => {
   return {
-    ...bindActionCreators({}, dispatch)
+    ...bindActionCreators({}, dispatch),
   };
 };
 // #endregion
 
 export default compose(
-  withRedux(
-    configureStore,
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  withRedux(configureStore, mapStateToProps, mapDispatchToProps),
   withRoot,
   withStyles(styles),
 )(Index);
-

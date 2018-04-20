@@ -1,27 +1,25 @@
 // @flow
 
 // #region imports
-import React, {
-  PureComponent
-}                             from 'react';
+import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
-import { connect }            from 'react-redux';
-import Link                   from 'next/link';
-import { withStyles }         from 'material-ui/styles';
-import Drawer                 from 'material-ui/Drawer';
-import AppBar                 from 'material-ui/AppBar';
-import Toolbar                from 'material-ui/Toolbar';
-import Typography             from 'material-ui/Typography';
-import IconButton             from 'material-ui/IconButton';
-import Hidden                 from 'material-ui/Hidden';
-import Divider                from 'material-ui/Divider';
-import Menu, { MenuItem }     from 'material-ui/Menu';
-import AccountCircle          from 'material-ui-icons/AccountCircle';
-import MenuIcon               from 'material-ui-icons/Menu';
-import compose                from 'recompose/compose';
-import Menus                  from './Menus';
-import styles                 from './styles';
-import * as userAuthActions   from '../../redux/modules/userAuth';
+import { connect } from 'react-redux';
+import Link from 'next/link';
+import { withStyles } from 'material-ui/styles';
+import Drawer from 'material-ui/Drawer';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import Hidden from 'material-ui/Hidden';
+import Divider from 'material-ui/Divider';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import AccountCircle from 'material-ui-icons/AccountCircle';
+import MenuIcon from 'material-ui-icons/Menu';
+import compose from 'recompose/compose';
+import Menus from './Menus';
+import styles from './styles';
+import * as userAuthActions from '../../redux/modules/userAuth';
 // #endregion
 
 // #region flow types
@@ -34,18 +32,16 @@ type Props = {
   isLogging: boolean,
   disconnectUser: () => string,
 
-
   // withStyle injected
   classes: any,
   theme: any,
-}
+};
 
 type State = {
   mobileOpen: boolean,
-  anchorEl: any
+  anchorEl: any,
 };
 // #endregion
-
 
 class Layout extends PureComponent<Props, State> {
   // #region state initialization
@@ -65,12 +61,10 @@ class Layout extends PureComponent<Props, State> {
       children,
       // userAuth
       isAuthenticated,
-      disconnectUser
+      disconnectUser,
     } = this.props;
 
-    const {
-      anchorEl
-    } = this.state;
+    const { anchorEl } = this.state;
 
     const drawer = (
       <div>
@@ -86,10 +80,7 @@ class Layout extends PureComponent<Props, State> {
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
-          <AppBar
-            className={classes.appBar}
-            elevation={0}
-          >
+          <AppBar className={classes.appBar} elevation={0}>
             <Toolbar>
               {/* burger menu */}
               <IconButton
@@ -102,89 +93,65 @@ class Layout extends PureComponent<Props, State> {
               </IconButton>
 
               {/* title */}
-              <Typography
-                type="title"
-                color="inherit"
-                noWrap
-              >
+              <Typography type="title" color="inherit" noWrap>
                 PWA Next Material UI
               </Typography>
 
               {/* a filler */}
               <div className={classes.flexible} />
 
-              { /* right actions */ }
-              {
-                isAuthenticated
-                  ?
-                  (
-                    <div>
-                      <IconButton
-                        aria-owns={open ? 'menu-appbar' : null}
-                        aria-haspopup="true"
-                        onClick={this.handleMenu}
-                        color="contrast"
-                      >
-                        <AccountCircle />
-                      </IconButton>
-                      <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                        open={open}
-                        onRequestClose={this.handleRequestClose}
-                      >
-                        <MenuItem
-                          onClick={this.handleRequestClose}
-                        >
-                          Profile
-                        </MenuItem>
-                        <MenuItem
-                          onClick={this.handleRequestClose}
-                        >
-                          My account
-                        </MenuItem>
-                        <MenuItem
-                          onClick={disconnectUser}
-                        >
-                          Disconnect
-                        </MenuItem>
-                      </Menu>
-                    </div>
-                  )
-                  :
-                  (
-                    <div>
-                      <Link
-                        prefetch
-                        href={'/login'}
-                        passHref
-                      >
-                        <IconButton
-                          aria-owns={open ? 'menu-appbar' : null}
-                          aria-haspopup="true"
-                          onClick={this.handleMenu}
-                          color="contrast"
-                        >
-                          <AccountCircle />
-                        </IconButton>
-                      </Link>
-                    </div>
-                  )
-              }
+              {/* right actions */}
+              {isAuthenticated ? (
+                <div>
+                  <IconButton
+                    aria-owns={open ? 'menu-appbar' : null}
+                    aria-haspopup="true"
+                    onClick={this.handleMenu}
+                    color="contrast"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={open}
+                    onRequestClose={this.handleRequestClose}
+                  >
+                    <MenuItem onClick={this.handleRequestClose}>
+                      Profile
+                    </MenuItem>
+                    <MenuItem onClick={this.handleRequestClose}>
+                      My account
+                    </MenuItem>
+                    <MenuItem onClick={disconnectUser}>Disconnect</MenuItem>
+                  </Menu>
+                </div>
+              ) : (
+                <div>
+                  <Link prefetch href={'/login'} passHref>
+                    <IconButton
+                      aria-owns={open ? 'menu-appbar' : null}
+                      aria-haspopup="true"
+                      onClick={this.handleMenu}
+                      color="contrast"
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                  </Link>
+                </div>
+              )}
             </Toolbar>
           </AppBar>
           {/* sidemenu small screen: */}
-          <Hidden
-            mdUp
-          >
+          <Hidden mdUp>
             <Drawer
               type="temporary"
               anchor={theme.direction === 'rtl' ? 'right' : 'left'}
@@ -201,10 +168,7 @@ class Layout extends PureComponent<Props, State> {
             </Drawer>
           </Hidden>
           {/* sidemenu medium to large screen: */}
-          <Hidden
-            mdDown
-            implementation="css"
-          >
+          <Hidden mdDown implementation="css">
             <Drawer
               type="permanent"
               open
@@ -215,11 +179,7 @@ class Layout extends PureComponent<Props, State> {
               {drawer}
             </Drawer>
           </Hidden>
-          <main
-            className={classes.content}
-          >
-            { children }
-          </main>
+          <main className={classes.content}>{children}</main>
         </div>
       </div>
     );
@@ -227,9 +187,10 @@ class Layout extends PureComponent<Props, State> {
   // #endregion
 
   // #region drawer management
-  handleDrawerToggle = () => this.setState(
-    ({mobileOpen: prevMobileOpen}: State) => ({ mobileOpen: !prevMobileOpen })
-  );
+  handleDrawerToggle = () =>
+    this.setState(({ mobileOpen: prevMobileOpen }: State) => ({
+      mobileOpen: !prevMobileOpen,
+    }));
   // #endregion
 
   // #region appBar action menu
@@ -244,33 +205,27 @@ class Layout extends PureComponent<Props, State> {
 }
 
 // #region redux state and dispatch map to props
-const mapStateToProps = (
-  state: any
-) => ({
+const mapStateToProps = (state: any) => ({
   // userAuth:
   isAuthenticated: state.userAuth.isAuthenticated,
-  isFetching:      state.userAuth.isFetching,
-  isLogging:       state.userAuth.isLogging
+  isFetching: state.userAuth.isFetching,
+  isLogging: state.userAuth.isLogging,
 });
 
-const mapDispatchToProps = (
-  dispatch: (...any) => any
-) => {
+const mapDispatchToProps = (dispatch: (...any) => any) => {
   return {
     ...bindActionCreators(
       {
         // userAuth:
-        ...userAuthActions
+        ...userAuthActions,
       },
-      dispatch)
+      dispatch,
+    ),
   };
 };
 // #endregion
 
 export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
-  withStyles(styles, { withTheme: true })
+  connect(mapStateToProps, mapDispatchToProps),
+  withStyles(styles, { withTheme: true }),
 )(Layout);
