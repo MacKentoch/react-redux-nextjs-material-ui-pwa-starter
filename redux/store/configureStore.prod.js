@@ -2,7 +2,8 @@
 
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { persistStore, autoRehydrate, asyncLocalStorage } from 'redux-persist';
+import { persistStore, autoRehydrate } from 'redux-persist';
+import { asyncLocalStorage } from 'redux-persist/storages';
 import reducer from '../modules/reducers';
 import fetchMiddleware from '../middleware/fetchMiddleware';
 
